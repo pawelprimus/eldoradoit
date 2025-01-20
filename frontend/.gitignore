@@ -1,0 +1,52 @@
+# Frontend .gitignore
+# frontend/.gitignore
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE - Cursor specific
+.cursor/
+.cursor-cache/
+
+# Optional: Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional: TypeScript cache
+*.tsbuildinfo
+
+# Optional: ESLint cache
+.eslintcache
+
+# Optional: Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: eldorado-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - eldorado-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: eldorado-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - eldorado-network
+
+networks:
+  eldorado-network:
+    driver: bridge

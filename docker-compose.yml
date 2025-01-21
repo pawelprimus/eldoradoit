@@ -6,8 +6,10 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: eldorado-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod  
     ports:
-      - "8080:8080"
+      - "40269:8080"
     networks:
       - eldorado-network
 
@@ -15,9 +17,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:8080}
     container_name: eldorado-frontend
     ports:
-      - "3000:3000"
+      - "40270:3000"
     depends_on:
       - backend
     networks:

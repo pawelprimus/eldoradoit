@@ -8,13 +8,14 @@ import {
   Paper 
 } from '@mui/material';
 import axios from 'axios';
+import config from './config';
 
 function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // This will call your backend API
-    axios.get('http://localhost:8080/api/hello')
+    // Using the API URL from config
+    axios.get(`${config.apiUrl}/api/hello`)
       .then(response => setMessage(response.data))
       .catch(error => console.error('Error:', error));
   }, []);

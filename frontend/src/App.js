@@ -12,12 +12,18 @@ import config from './config';
 
 function App() {
   const [message, setMessage] = useState('');
+  const [hits, setHits] = useState([]);
 
   useEffect(() => {
     // Using the API URL from config
     axios.get(`${config.apiUrl}/api/hello`)
       .then(response => setMessage(response.data))
       .catch(error => console.error('Error:', error));
+
+    // Fetching hits from the new endpoint
+    axios.get(`${config.apiUrl}/api/hits`)
+      .then(response => setHits(response.data))
+      .catch(error => console.error('Error fetching hits:', error));
   }, []);
 
   return (
@@ -39,6 +45,16 @@ function App() {
             <Typography variant="body1">
               Backend response: {message}
             </Typography>
+            <Typography variant="h5" gutterBottom>
+              Hits:
+            </Typography>
+            <Box sx={{ maxHeight: '300px', overflowY: 'auto' }}>
+              <ul>
+                {hits.map((hit, index) => (
+                  <li key={index}>{hit}</li>
+                ))}
+              </ul>
+            </Box>
           </Paper>
         </Box>
       </Container>

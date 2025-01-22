@@ -33,3 +33,10 @@ yarn-error.log*
 *.tmp
 *.temp
 *.swp
+
+# Environment files
+.env
+.env.prod
+
+# MySQL data
+mysql-data/

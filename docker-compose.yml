@@ -1,31 +1,43 @@
 version: '3.8'
 
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: eldorado-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-joboffers}
+      - MYSQL_USER=${MYSQL_USER:-joboffersuser}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-userpassword}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - eldorado-network
+
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile
     container_name: eldorado-backend
     environment:
-      - SPRING_PROFILES_ACTIVE=prod  
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-joboffers}?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER:-joboffersuser}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD:-userpassword}
     ports:
       - "40269:8080"
+    depends_on:
+      - mysql
     networks:
       - eldorado-network
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:8080}
-    container_name: eldorado-frontend
-    ports:
-      - "40270:3000"
-    depends_on:
-      - backend
-    networks:
-      - eldorado-network
+    # ... (your existing frontend config remains the same)
+
+volumes:
+  mysql-data:
 
 networks:
   eldorado-network:

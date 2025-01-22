@@ -34,7 +34,18 @@ services:
       - eldorado-network
 
   frontend:
-    # ... (your existing frontend config remains the same)
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8080}  # Fixed indentation and format
+    container_name: eldorado-frontend
+    ports:
+      - "40270:3000"
+    depends_on:
+      - backend
+    networks:
+      - eldorado-network
 
 volumes:
   mysql-data:

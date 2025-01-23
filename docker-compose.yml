@@ -32,13 +32,17 @@ services:
       - mysql
     networks:
       - eldorado-network
-
+    volumes:
+      - application-logs:${LOGGING_PATH}
+    environment:
+      - LOGGING_FILE_PATH=${LOGGING_PATH}
+      
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8080}  # Fixed indentation and format
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8080}
     container_name: eldorado-frontend
     ports:
       - "40270:3000"
@@ -49,7 +53,9 @@ services:
 
 volumes:
   mysql-data:
-
+  application-logs:
+    driver: local
+    
 networks:
   eldorado-network:
     driver: bridge

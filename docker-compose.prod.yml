@@ -15,7 +15,9 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}   
+    volumes:
+      - application-logs:${LOGGING_PATH}
+      
   frontend:
     restart: always

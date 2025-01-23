@@ -26,6 +26,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-joboffers}?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USER:-joboffersuser}
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD:-userpassword}
+      - LOGGING_FILE_PATH=${LOGGING_PATH}      
     ports:
       - "40269:8080"
     depends_on:
@@ -34,8 +35,6 @@ services:
       - eldorado-network
     volumes:
       - application-logs:${LOGGING_PATH}
-    environment:
-      - LOGGING_FILE_PATH=${LOGGING_PATH}
       
   frontend:
     build:

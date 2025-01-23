@@ -17,7 +17,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}   
     volumes:
-      - application-logs:${LOGGING_PATH}
+      - ${LOGGING_PATH}:${LOGGING_PATH}
       
   frontend:
     restart: always

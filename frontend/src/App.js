@@ -21,22 +21,26 @@ function App() {
         const lastUpdatedTime = responseLastUpdated.data;
         setLastUpdated(formatDate(lastUpdatedTime));
 
-        const responseOffers = await axios.get(`${config.apiUrl}/all`);
-        const formattedOfferData = responseOffers.data.map(item => ({
-          x: new Date(item.date).getTime(),
-          y: item.count
-        }));
-        
-        setOfferData([{
-          name: 'Offers',
-          data: formattedOfferData
-        }]);
-
         const responseLevels = await axios.get(`${config.apiUrl}/levels`);
-        const formattedLevelData = responseLevels.data.map(item => ({
-          x: new Date(item.fetchDate).getTime(),
-          ...item.offerCounts
-        }));
+        console.log('Level Data Response:', responseLevels.data);
+
+        const formattedLevelData = responseLevels.data.map(item => {
+          if (item.offerCounts) {
+            return {
+              x: new Date(item.fetchDate).getTime(),
+              ...item.offerCounts
+            };
+          } else {
+            console.warn('Missing offerCounts for item:', item);
+            return {
+              x: new Date(item.fetchDate).getTime(),
+              C_LEVEL: 0,
+              SENIOR: 0,
+              MID: 0,
+              JUNIOR: 0
+            };
+          }
+        });
 
         const seriesData = [
           {
@@ -58,6 +62,17 @@ function App() {
         ];
 
         setLevelData(seriesData);
+
+        const allOffersData = formattedLevelData.map(item => ({
+          x: item.x,
+          y: item.ALL
+        }));
+
+        setOfferData([{
+          name: 'Offers',
+          data: allOffersData
+        }]);
+
       } catch (error) {
         setError('Coś nie bangla.');
         console.error('Error fetching data:', error);
@@ -139,19 +154,19 @@ function App() {
             <CustomChart
               options={chartOptions}
               series={offerData}
-              title="Liczba ofert w czasie"
+              title="Offers for Level ALL Over Time"
             />
             <div style={{ margin: '40px 0' }} />
             <CustomChart
               options={{
                 ...chartOptions,
                 title: {
-                  text: 'Liczba ofert z poszczególnych poziomów',
+                  text: 'Offer Counts by Level',
                   align: 'left',
                 },
               }}
               series={levelData}
-              title="Liczba ofert z poszczególnych poziomów"
+              title="Offer Counts by Level"
             />
           </>
         )}

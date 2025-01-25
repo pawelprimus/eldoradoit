@@ -101,16 +101,5 @@ const chartOptions = {
     }
   };
   
-//   const polishMonths = [
-//     'Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze',
-//     'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'
-//   ];
-  
-//   // Update the datetimeFormatter to use Polish month names
-//   chartOptions.xaxis.labels.datetimeFormatter.month = (value) => {
-//     console.log('Value passed to month formatter:', value); // Debugging line
-//     // const monthIndex = new Date(value).getMonth();
-//     return polishMonths[value];
-//   };
   
   export default chartOptions;

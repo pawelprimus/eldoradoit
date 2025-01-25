@@ -2,6 +2,7 @@ package pl.prim.eldorado.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,6 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @Slf4j
 public class ApplicationConfig implements WebMvcConfigurer {
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     private final RequestLoggingInterceptor requestLoggingInterceptor;
 
@@ -22,11 +26,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("https://api.justjoin.it/v2/user-panel/offers")
+                .baseUrl(baseUrl)
                 .filter((request, next) -> {
                     // Log the request method and URL
                     log.info("Outgoing WebClient Request: " + request.method() + " " + request.url());
-
                     // Proceed to the next exchange in the filter chain
                     return next.exchange(request)
                             .doOnNext(response -> {

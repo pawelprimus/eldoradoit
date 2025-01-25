@@ -1,4 +1,4 @@
-package pl.prim.eldorado.model;
+package pl.prim.eldorado.model.stats.enums;
 
 public enum Technology {
     ADMIN("13"), // 13

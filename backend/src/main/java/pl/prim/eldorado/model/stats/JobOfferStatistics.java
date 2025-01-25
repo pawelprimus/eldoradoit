@@ -1,10 +1,10 @@
-package pl.prim.eldorado.model;
+package pl.prim.eldorado.model.stats;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import pl.prim.eldorado.model.stats.enums.City;
+import pl.prim.eldorado.model.stats.enums.ExperienceLevel;
+import pl.prim.eldorado.model.stats.enums.Technology;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -15,6 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class JobOfferStatistics {
 
     @Id

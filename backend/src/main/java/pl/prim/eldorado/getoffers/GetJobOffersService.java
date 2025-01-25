@@ -3,10 +3,12 @@ package pl.prim.eldorado.getoffers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.prim.eldorado.model.ExperienceLevel;
-import pl.prim.eldorado.model.JobOfferStatistics;
-import pl.prim.eldorado.model.OfferCountDto;
-import pl.prim.eldorado.scrap.JobOfferStatisticsRepository;
+import pl.prim.eldorado.getoffers.dto.CityTechnologyOfferDto;
+import pl.prim.eldorado.getoffers.dto.OfferCountDto;
+import pl.prim.eldorado.model.stats.enums.City;
+import pl.prim.eldorado.model.stats.JobOfferStatistics;
+import pl.prim.eldorado.model.stats.enums.Technology;
+import pl.prim.eldorado.fetchoffers.JobOfferStatisticsRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,12 +25,25 @@ class GetJobOffersService {
     }
 
     List<OfferCountDto> getAll() {
-        for (JobOfferStatistics jos : repository.findAll()) {
-            log.info(jos.toString());
+        if(log.isDebugEnabled()){
+            for (JobOfferStatistics jos : repository.findAll()) {
+                log.debug(jos.toString());
+            }
         }
+
         return repository.findAll().stream()
-                .map(offer -> new OfferCountDto(offer.getOfferCounts().get(ExperienceLevel.ALL), offer.getFetchDate().toLocalDate()))
+                .map(OfferCountDto::from)
                 .collect(Collectors.toList());
+    }
+
+    List<CityTechnologyOfferDto> getOffersWithLevels() {
+        List<CityTechnologyOfferDto> cityTechnologyOfferDtos = repository
+                .findByCityAndTechnology(City.ALL, Technology.ALL)
+                .stream()
+                .map(CityTechnologyOfferDto::from)
+                .toList();
+
+        return cityTechnologyOfferDtos;
     }
 }
 

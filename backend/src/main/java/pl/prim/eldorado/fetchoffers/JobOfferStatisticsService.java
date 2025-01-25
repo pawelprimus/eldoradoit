@@ -1,4 +1,4 @@
-package pl.prim.eldorado.scrap;
+package pl.prim.eldorado.fetchoffers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.prim.eldorado.model.*;
+import pl.prim.eldorado.model.stats.enums.City;
+import pl.prim.eldorado.model.stats.enums.ExperienceLevel;
+import pl.prim.eldorado.model.stats.enums.Technology;
+import pl.prim.eldorado.model.fails.FailedOperation;
+import pl.prim.eldorado.model.fails.FailureMetadata;
+import pl.prim.eldorado.model.stats.JobOfferStatistics;
+import pl.prim.eldorado.model.stats.OfferCountResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -20,7 +26,7 @@ import java.util.concurrent.TimeoutException;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-class JobOfferStatisticsService {
+public class JobOfferStatisticsService {
 
     private final JobOfferStatisticsRepository jobOfferStatisticsRepository;
     private final FailedOperationRepository failedOperationRepository;

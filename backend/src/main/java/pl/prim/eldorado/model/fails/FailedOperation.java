@@ -1,4 +1,4 @@
-package pl.prim.eldorado.model;
+package pl.prim.eldorado.model.fails;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

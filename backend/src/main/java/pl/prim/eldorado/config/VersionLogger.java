@@ -1,4 +1,4 @@
-package pl.prim.eldorado;
+package pl.prim.eldorado.config;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package pl.prim.eldorado;
+package pl.prim.eldorado.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

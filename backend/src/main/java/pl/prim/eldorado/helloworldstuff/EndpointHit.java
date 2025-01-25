@@ -1,4 +1,4 @@
-package pl.prim.eldorado;
+package pl.prim.eldorado.helloworldstuff;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

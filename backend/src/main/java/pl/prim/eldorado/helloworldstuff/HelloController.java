@@ -1,4 +1,4 @@
-package pl.prim.eldorado;
+package pl.prim.eldorado.helloworldstuff;
 
 
 import org.springframework.web.bind.annotation.CrossOrigin;

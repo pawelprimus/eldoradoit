@@ -2,7 +2,16 @@
 const chartOptions = {
     chart: {
       type: 'line',
-      height: 700,
+      height: '100%',
+      parentHeightOffset: 0,
+      offsetY: 0,
+      offsetX: 0,
+      margin: [0, 0, 0, 0],
+      spacing: [0, 0, 0, 0],
+      redrawOnWindowResize: true,
+      animations: {
+        enabled: false
+      },
       zoom: {
         enabled: true,
         type: 'x',
@@ -39,6 +48,21 @@ const chartOptions = {
     },
     xaxis: {
       type: 'datetime',
+      tickAmount: 12,
+      tickPlacement: 'on',
+      min: undefined,
+      max: undefined,
+      
+      title: {
+        text: '',
+        offsetY: 0
+      },
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
       labels: {
         formatter: (value) => {
           const dateValue = new Date(value);
@@ -48,10 +72,14 @@ const chartOptions = {
           ];
           const monthIndex = dateValue.getMonth();
           return `${polishMonths[monthIndex]} ${dateValue.getFullYear()}`; 
+        },
+        rotate: -45,
+        rotateAlways: false,
+        maxHeight: 40,
+        offsetY: 0,
+        style: {
+          fontSize: '11px'
         }
-      },
-      title: {
-        text: 'Data'
       }
     },
     yaxis: {
@@ -63,7 +91,12 @@ const chartOptions = {
     },
     tooltip: {
       x: {
-        format: 'dd MMM yyyy'
+        format: 'dd/MM/yyyy'
+      },
+      y: {
+        formatter: function(value) {
+          return value + ' ofert';
+        }
       }
     },
     title: {

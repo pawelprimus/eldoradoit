@@ -10,13 +10,10 @@ COPY .mvn .mvn
 # Dodaj uprawnienia wykonywania dla mvnw
 RUN chmod +x ./mvnw
 
-# Download dependencies
-RUN ./mvnw dependency:go-offline
-
 # Copy source code
 COPY src src
 
-# Build the application
+# Build the application (Maven downloads only required deps, not the full BOM)
 RUN ./mvnw package -DskipTests
 
 # Run the application

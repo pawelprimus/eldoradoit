@@ -177,6 +177,8 @@ public class JobOfferStatisticsService {
                 .bodyToMono(OfferCountResponse.class)
                 .map(OfferCountResponse::count)
                 .timeout(Duration.ofSeconds(10))
+                .doOnNext(count -> log.info("Fetched count={} for city={}, technology={}, level={}",
+                        count, city, technology, experienceLevel))
                 .doOnError(error -> logFetchError(url, error))
                 .retryWhen(Retry.backoff(2, Duration.ofSeconds(1))
                         .maxBackoff(Duration.ofSeconds(3)));
@@ -213,10 +215,10 @@ public class JobOfferStatisticsService {
     }
 
     private void logSuccessfulSave(JobOfferStatistics statistics) {
-        log.info("Saved statistics for City: {}, Technology: {}, Experience Levels: {}",
+        log.info("Saved statistics for City: {}, Technology: {}, Counts: {}",
                 statistics.getCity().getDisplayName(),
                 statistics.getTechnology().getDisplayName(),
-                statistics.getOfferCounts().keySet());
+                statistics.getOfferCounts());
     }
 
     private void logSaveError(JobOfferStatistics statistics, Throwable error) {

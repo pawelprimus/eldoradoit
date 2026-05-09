@@ -1,0 +1,57 @@
+# Eldorado Job Market Dashboard - Cursor Rules
+
+## Project Context
+This is a React dashboard application that monitors job offer trends across different experience levels (C_LEVEL, SENIOR, MID, JUNIOR). The app visualizes data from an API to track whether "eldorado" company/platform is experiencing changes in job market activity.
+
+## Code Style & Architecture
+- Use functional components with React hooks (React 18+)
+- Prefer const over let when possible
+- Use arrow functions for components
+- Use destructuring for props and state
+- Use template literals instead of string concatenation
+- Use optional chaining (?.) and nullish coalescing (??) operators
+- Use Material-UI components for consistent styling
+- Implement proper error handling with try-catch blocks
+
+## Naming Conventions
+- Use camelCase for variables, functions, and props
+- Use PascalCase for components and classes
+- Use UPPER_SNAKE_CASE for constants
+- Use descriptive names (avoid abbreviations)
+
+## File Organization
+- One component per file
+- Use index.js for barrel exports
+- Group related components in folders
+- Keep utility functions in separate files
+- Maintain chart configurations in dedicated files
+
+## Chart & Data Handling
+- Use ApexCharts for data visualization
+- Format dates consistently using toLocaleString()
+- Handle missing data gracefully with fallback values
+- Structure chart data with proper x/y coordinates for time series
+
+## API Integration
+- Use axios for HTTP requests
+- Implement proper loading states
+- Handle API errors gracefully
+- Use environment variables for API URLs
+
+## Performance Considerations
+- Use React.memo for expensive components
+- Use useMemo and useCallback when appropriate
+- Avoid inline object/function creation in render
+- Implement proper dependency arrays in useEffect
+
+## Error Handling
+- Always use try-catch for async operations
+- Provide meaningful error messages in Polish ("Coś nie bangla")
+- Use error boundaries for React components
+- Log errors to console for debugging
+
+## Testing & Quality
+- Write unit tests for utility functions
+- Use React Testing Library for component tests
+- Mock external dependencies
+- Test error scenarios and edge cases
